@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -8,6 +10,39 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+
+  _openGallary(){
+
+ }
+
+  _openCamera(){
+
+  }
+
+  Future<Void> _showChoicesDialog(BuildContext context){
+    return showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              GestureDetector(
+                child: Text("Gallary"),
+                onTap: () {
+                  _openGallary();
+                },
+              ),
+              GestureDetector(
+                child: Text("Camera"),
+                onTap: () {
+                  _openCamera();
+                },
+              )
+            ],
+          ),
+        ),
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +56,7 @@ class _LandingScreenState extends State<LandingScreen> {
             children: <Widget>[
               Text("No Image Selected"),
               RaisedButton( onPressed: (){
-
+                  _showChoicesDialog(context);
               }, child: Text("Select Image"),)
             ],
           ),
