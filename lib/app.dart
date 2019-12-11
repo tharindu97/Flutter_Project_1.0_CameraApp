@@ -14,16 +14,23 @@ class _LandingScreenState extends State<LandingScreen> {
 
   File imageFile;
 
-  _openGallary() async{
+  _openGallary(BuildContext context) async{
 
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
-    imageFile = picture;
+    this.setState(() {
+      imageFile = picture;
+    });
+    Navigator.of(context).pop();
+    
  }
 
-  _openCamera() async{
+  _openCamera(BuildContext context) async{
     
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
-    imageFile = picture;
+    this.setState(() {
+      imageFile = picture;
+    });
+    Navigator.of(context).pop();
   }
 
   Future<Void> _showChoicesDialog(BuildContext context){
@@ -36,14 +43,14 @@ class _LandingScreenState extends State<LandingScreen> {
               GestureDetector(
                 child: Text("Gallary"),
                 onTap: () {
-                  _openGallary();
+                  _openGallary(context);
                 },
               ),
               Padding(padding: EdgeInsets.all(8.0),),
               GestureDetector(
                 child: Text("Camera"),
                 onTap: () {
-                  _openCamera();
+                  _openCamera(context);
                 },
               )
             ],
@@ -51,6 +58,14 @@ class _LandingScreenState extends State<LandingScreen> {
         ),
       );
     });
+  }
+
+  Widget _decideImageView(){
+    if(imageFile == null){
+      return Text("No Image Selected");
+    }else{
+      return Image.file(imageFile, width: 400,height: 400); 
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -63,7 +78,7 @@ class _LandingScreenState extends State<LandingScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text("No Image Selected"),
+              _decideImageView(),
               RaisedButton( onPressed: (){
                   _showChoicesDialog(context);
               }, child: Text("Select Image"),)
