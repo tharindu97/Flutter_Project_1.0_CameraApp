@@ -1,6 +1,7 @@
 import 'dart:ffi';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen({Key key}) : super(key: key);
@@ -11,12 +12,18 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
 
-  _openGallary(){
+  File imageFile;
 
+  _openGallary() async{
+
+    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    imageFile = picture;
  }
 
-  _openCamera(){
-
+  _openCamera() async{
+    
+    var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    imageFile = picture;
   }
 
   Future<Void> _showChoicesDialog(BuildContext context){
