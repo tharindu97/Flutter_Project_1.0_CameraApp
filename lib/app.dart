@@ -22,6 +22,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Future<Void> _showChoicesDialog(BuildContext context){
     return showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
+        title: Text("Make a Choice"),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
@@ -31,6 +32,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   _openGallary();
                 },
               ),
+              Padding(padding: EdgeInsets.all(8.0),),
               GestureDetector(
                 child: Text("Camera"),
                 onTap: () {
