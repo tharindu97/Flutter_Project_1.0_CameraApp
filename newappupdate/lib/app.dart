@@ -83,40 +83,54 @@ class _LandingScreenState extends State<LandingScreen> {
               new Padding(
                 padding: new EdgeInsets.only(bottom: 20)
               ),
-              RaisedButton.icon(
-                icon: Icon(Icons.camera),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                elevation: 10,
-                highlightElevation: 10,
-                color: Colors.blue,
-                textColor: Colors.white, 
-                onPressed: (){
-                  _showChoicesDialog(context);
-                      }, 
-                label: Text("Select Image"),
-                /*padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 100.0,
-                ),*/
+
+              SizedBox(
+                width: 300,
+                height: 40,
+                 child: RaisedButton.icon(
+                    icon: Icon(Icons.camera),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                    elevation: 10,
+                    highlightElevation: 10,
+                    color: Colors.blue,
+                    textColor: Colors.white, 
+                    onPressed: (){
+                      _showChoicesDialog(context);
+                          }, 
+                    label: Text("Select Image"),
+                    /*padding: const EdgeInsets.symmetric(
+                      vertical: 16.0,
+                      horizontal: 100.0,
+                    ),*/
+                  ),
               ),
               new Padding(
-                padding: new EdgeInsets.only(bottom: 2)
+                padding: new EdgeInsets.only(bottom: 12)
               ),
-              RaisedButton.icon(
-                icon: Icon(Icons.select_all),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                elevation: 10,
-                highlightElevation: 10,
-                color: Colors.blue,
-                textColor: Colors.white, 
-                onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
-                      }, 
-                label: Text("Change"),
-                /*padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 120.0,
-                ),*/
+
+              SizedBox(
+                width: 300,
+                height: 40,
+                child: RaisedButton.icon(
+                    icon: Icon(Icons.select_all),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                    elevation: 10,
+                    highlightElevation: 10,
+                    color: Colors.blue,
+                    textColor: Colors.white, 
+                    onPressed: (){
+                      if(imageFile == null){
+                        
+                      }else{
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
+                      }
+                          }, 
+                    label: Text("Change"),
+                    /*padding: const EdgeInsets.symmetric(
+                      vertical: 16.0,
+                      horizontal: 120.0,
+                    ),*/
+                  )
               )
             ],
           ),
