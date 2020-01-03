@@ -68,71 +68,75 @@ class _LandingScreenState extends State<LandingScreen> {
       return Image.file(imageFile, width: 400,height: 400); 
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Main Screen"),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _decideImageView(),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 20)
-              ),
+      body: Builder(
+        builder: (BuildContext context)=> Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _decideImageView(),
+                new Padding(
+                  padding: new EdgeInsets.only(bottom: 20)
+                ),
 
-              SizedBox(
-                width: 300,
-                height: 40,
-                 child: RaisedButton.icon(
-                    icon: Icon(Icons.camera),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                    elevation: 10,
-                    highlightElevation: 10,
-                    color: Colors.blue,
-                    textColor: Colors.white, 
-                    onPressed: (){
-                      _showChoicesDialog(context);
-                          }, 
-                    label: Text("Select Image"),
-                    /*padding: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                      horizontal: 100.0,
-                    ),*/
-                  ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 12)
-              ),
+                SizedBox(
+                  width: 300,
+                  height: 40,
+                   child: RaisedButton.icon(
+                      icon: Icon(Icons.camera),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      elevation: 10,
+                      highlightElevation: 10,
+                      color: Colors.blue,
+                      textColor: Colors.white, 
+                      onPressed: (){
+                        _showChoicesDialog(context);
+                            }, 
+                      label: Text("Select Image"),
+                      /*padding: const EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 100.0,
+                      ),*/
+                    ),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.only(bottom: 12)
+                ),
 
-              SizedBox(
-                width: 300,
-                height: 40,
-                child: RaisedButton.icon(
-                    icon: Icon(Icons.select_all),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                    elevation: 10,
-                    highlightElevation: 10,
-                    color: Colors.blue,
-                    textColor: Colors.white, 
-                    onPressed: (){
-                      if(imageFile == null){
-                        
-                      }else{
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
-                      }
-                          }, 
-                    label: Text("Change"),
-                    /*padding: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                      horizontal: 120.0,
-                    ),*/
-                  )
-              )
-            ],
+                SizedBox(
+                  width: 300,
+                  height: 40,
+                  child: RaisedButton.icon(
+                      icon: Icon(Icons.select_all),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      elevation: 10,
+                      highlightElevation: 10,
+                      color: Colors.blue,
+                      textColor: Colors.white, 
+                      onPressed: (){
+                        if(imageFile == null){
+                          SnackBar snackbar = SnackBar(content: Text('Not Select Image, Select the image'),);
+                          Scaffold.of(context).showSnackBar(snackbar);
+                        }else{
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
+                        }
+                            }, 
+                      label: Text("Change"),
+                      /*padding: const EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 120.0,
+                      ),*/
+                    )
+                )
+              ],
+            ),
           ),
         ),
       ),
