@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:newappupdate/imge_front.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen({Key key}) : super(key: key);
@@ -109,7 +110,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 color: Colors.blue,
                 textColor: Colors.white, 
                 onPressed: (){
-                    
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
                       }, 
                 label: Text("Change"),
                 /*padding: const EdgeInsets.symmetric(
