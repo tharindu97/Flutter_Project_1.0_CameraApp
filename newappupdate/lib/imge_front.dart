@@ -7,6 +7,9 @@ class Update extends StatelessWidget{
       appBar: AppBar(
         title: Text('Update image'),
       ),
+      body: Container(
+        
+      ),
     );
   }
 
