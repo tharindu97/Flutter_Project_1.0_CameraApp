@@ -1,5 +1,7 @@
 import 'dart:ffi';
+//import 'dart:html';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newappupdate/imge_front.dart';
@@ -14,10 +16,12 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
 
   File imageFile;
-
+  var picture;
+  String getText;
+  
   _openGallary(BuildContext context) async{
 
-    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
       imageFile = picture;
     });
@@ -27,11 +31,29 @@ class _LandingScreenState extends State<LandingScreen> {
 
   _openCamera(BuildContext context) async{
     
-    var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
       imageFile = picture;
     });
     Navigator.of(context).pop();
+  }
+
+  upload() async{
+    String filename = picture.path;
+    print(filename);
+    try{
+      FormData formData = new FormData.from({'ytgy': new UploadFileInfo(picture, filename)});
+      var response = await Dio().post('',data: formData);
+      print(response.data);
+
+      var state = response.data;
+      getText = state;
+      setState(() {
+        getText = state;
+      });
+    }catch(err){
+      print(err.message);
+    }
   }
 
   Future<Void> _showChoicesDialog(BuildContext context){
@@ -126,6 +148,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           Scaffold.of(context).showSnackBar(snackbar);
                         }else{
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
+                          upload();
                         }
                             }, 
                       label: Text("Change"),
