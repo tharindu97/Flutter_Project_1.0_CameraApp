@@ -1,10 +1,9 @@
 import 'dart:ffi';
-//import 'dart:html';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:newappupdate/imge_front.dart';
+
 
 class LandingScreen extends StatefulWidget {
   LandingScreen({Key key}) : super(key: key);
@@ -17,7 +16,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   File imageFile;
   var picture;
-  String getText;
+  String getText = '';
   
   _openGallary(BuildContext context) async{
 
@@ -42,18 +41,20 @@ class _LandingScreenState extends State<LandingScreen> {
     String filename = picture.path;
     print(filename);
     try{
-      FormData formData = new FormData.from({'ytgy': new UploadFileInfo(picture, filename)});
-      var response = await Dio().post('',data: formData);
-      print(response.data);
-
-      var state = response.data;
+      FormData formData = new FormData.from({'file': new UploadFileInfo(picture, filename)});
+      var response = await Dio().post('http://192.168.8.100:3000/user/image',data: formData);
+      var state = response.data['message'];
       getText = state;
+      print(getText);
       setState(() {
+        imageFile = picture;
         getText = state;
       });
+      
     }catch(err){
       print(err.message);
     }
+    return getText;
   }
 
   Future<Void> _showChoicesDialog(BuildContext context){
@@ -103,6 +104,7 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                
                 _decideImageView(),
                 new Padding(
                   padding: new EdgeInsets.only(bottom: 20)
@@ -122,10 +124,6 @@ class _LandingScreenState extends State<LandingScreen> {
                         _showChoicesDialog(context);
                             }, 
                       label: Text("Select Image"),
-                      /*padding: const EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 100.0,
-                      ),*/
                     ),
                 ),
                 new Padding(
@@ -142,23 +140,16 @@ class _LandingScreenState extends State<LandingScreen> {
                       highlightElevation: 10,
                       color: Colors.blue,
                       textColor: Colors.white, 
-                      onPressed: (){
-                        if(imageFile == null){
-                          SnackBar snackbar = SnackBar(content: Text('Not Select Image, Select the image'),);
-                          Scaffold.of(context).showSnackBar(snackbar);
-                        }else{
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => Update()));
-                          upload();
-                        }
-                            }, 
+                      onPressed:  upload, 
                       label: Text("Change"),
-                      /*padding: const EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 120.0,
-                      ),*/
                     )
-                )
+                ),
+               Padding(
+                 padding: const EdgeInsets.all(20.0),
+                 child : Text('$getText')
+               )
               ],
+              
             ),
           ),
         ),
@@ -166,3 +157,5 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 }
+
+
